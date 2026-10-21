@@ -4,7 +4,7 @@
 
 **Research title:** *The Role of Import-Supplier Concentration in UK Food Price Pass-Through: A Category-Level Analysis, 2014–2026*
 
-This repository contains the reproducible technical implementation for a UK food-price pass-through study using official **HMRC UK Trade Info** import data and **ONS MM23** food CPI data. It is designed as an auditable research artefact: each research question can be traced from data source and formula to Python implementation, statistical output, robustness checks and final figure.
+This repository contains the Python implementation for a UK food-price pass-through study using official **HMRC UK Trade Info** import data and **ONS MM23** food CPI data. It includes the data preparation, model code, diagnostics, robustness checks and figures used in the dissertation.
 
 ## Research questions
 
@@ -115,7 +115,7 @@ config/              Frozen project and HS/COICOP concordance
  results/figures/     Eight numbered dissertation figures
  results/reports/     Technical and reproducibility reports
  docs/                Research design, formulas, implementation, diagnostics
- supervisor_evidence/ Concise proof/traceability pack for technical review
+ technical_evidence/  Formula, code and result traceability notes
  provenance/          Source, query and live-extraction manifests
 ```
 
@@ -138,7 +138,7 @@ config/              Frozen project and HS/COICOP concordance
 - The HS-to-CPI concordance is frozen and version controlled.
 - Data-source and HMRC query provenance are retained under `provenance/`.
 - **35 automated tests** check panel balance, category coverage, formula behaviour, HHI bounds, lag completeness, headline numerical results and robustness-sign stability.
-- `scripts/05_verify_reported_results.py` independently checks the headline numerical claims against the generated result tables and writes a PASS/FAIL audit report.
+- `scripts/05_verify_reported_results.py` checks the headline numerical results against the generated result tables and writes a verification report.
 - The 2020–2023 regime is treated as a broad disruption period, not a single causal intervention.
 - HMRC unit values are treated as **cost proxies**, not pure transaction-price indices.
 
@@ -146,7 +146,7 @@ See [`docs/06_LIMITATIONS_AND_ETHICS.md`](docs/06_LIMITATIONS_AND_ETHICS.md) bef
 
 ## Data provenance
 
-The audited live HMRC extraction covered **58,196 supplier-country-month records** across the six categories. Untouched API-response bytes are not embedded here; the query manifest, extraction audit and verified 151-month category-level analytical extracts are retained, and the acquisition script documents how the source extraction is reproduced. See [`data/raw/hmrc/HMRC_RAW_DATA_NOTE.md`](data/raw/hmrc/HMRC_RAW_DATA_NOTE.md).
+The audited HMRC extraction covered **58,196 supplier-country-month records** across the six categories. The full supplier-country table is not committed; the exact query manifest, extraction audit and six 151-month category-level analytical extracts are retained, and the acquisition script can reproduce the source extraction. See [`data/raw/hmrc/HMRC_RAW_DATA_NOTE.md`](data/raw/hmrc/HMRC_RAW_DATA_NOTE.md).
 
 ## Author and citation
 
