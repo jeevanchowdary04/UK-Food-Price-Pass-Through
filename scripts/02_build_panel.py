@@ -2,7 +2,7 @@
 
 If full country-month raw HMRC data have been downloaded, this script rebuilds
 monthly HHI/unit-value measures from them. Otherwise it uses the bundled
-verified category-month analytical extract used for the submitted technical run.
+retained category-month analytical extract used for the main analysis.
 """
 from pathlib import Path
 import sys
