@@ -1,27 +1,27 @@
 # Technical implementation
 
-## Pipeline
+## Analysis pipeline
 
-1. `00_validate_environment.py` — validates project configuration.
-2. `01_acquire_hmrc.py` — live HMRC API acquisition route.
-3. `02_build_panel.py` — panel construction/validation route.
-4. `03_reproduce_final_analysis.py` — canonical RQ1–RQ3, diagnostics and robustness analysis.
-5. `04_make_figures.py` — eight numbered final figures.
-6. `05_verify_reported_results.py` — independent headline-result and artefact checks.
+1. `00_validate_environment.py` — checks the project configuration and required inputs.
+2. `01_acquire_hmrc.py` — downloads HMRC data from the OTS API when a live refresh is required.
+3. `02_build_panel.py` — builds and validates the monthly category panel.
+4. `03_reproduce_final_analysis.py` — runs the RQ1–RQ3 models, diagnostics and robustness checks.
+5. `04_make_figures.py` — recreates the eight figures used in the analysis.
+6. `05_verify_reported_results.py` — checks the main reported values against the generated result tables.
 
-## Reusable package
+## Reusable Python modules
 
-- `features.py` — HHI, Top-3 share, safe log changes and trade aggregation.
+- `features.py` — HHI, Top-3 share, log changes and trade aggregation.
 - `panel.py` — ONS loading and common-period panel merge.
-- `models.py` — lag creation, robust model fitting, coefficient tables and covariance-aware linear combinations.
-- `quality.py` — category-level quality summaries and pre-specified coverage gates.
-- `hmrc.py` — HMRC acquisition helpers.
-- `plotting.py` — reusable visualisation utilities.
+- `models.py` — lag construction, robust estimation and covariance-aware linear combinations.
+- `quality.py` — category-level quality summaries and coverage checks.
+- `hmrc.py` — HMRC API acquisition helpers.
+- `plotting.py` — reusable plotting functions.
 
-## Reproducibility design
+## Reproducibility
 
-The canonical offline run starts from verified monthly HMRC extracts and official ONS CPI input retained in the repository. The final analysis reconstructs the 906-row panel and 882-row primary sample, writes the analytical datasets locally, estimates all models, rebuilds result tables, and regenerates the figures. A separate verifier then checks reported headline values against the generated files.
+The standard offline run starts from the retained monthly HMRC analytical extracts and the ONS CPI input. The analysis reconstructs the 906-row panel and 882-row primary estimation sample, estimates the models, writes the result tables, and rebuilds the figures. The verification script then compares the headline results with the generated output files.
 
-## Numerical traceability
+## Result traceability
 
-The main analysis outputs are CSV/JSON rather than values typed manually into documentation. `results/tables/findings_summary.json` provides a machine-readable record of sample sizes, RQ estimates, category-specific effects, robustness and global diagnostics.
+The main outputs are stored as CSV and JSON files so that the reported coefficients, cumulative effects, diagnostics and robustness results can be checked directly. `results/tables/findings_summary.json` provides a compact summary of the principal results.
