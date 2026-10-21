@@ -389,7 +389,16 @@ findings = {
     'robustness_cumulative': robust_cum.to_dict('records'),
     'diagnostics_global': diag_summary.to_dict('records'),
 }
-(OUT/'findings_summary.json').write_text(json.dumps(findings, indent=2, default=str), encoding='utf-8')
+def _json_safe(value):
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, dict):
+        return {k: _json_safe(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(v) for v in value]
+    return value
+
+(OUT/'findings_summary.json').write_text(json.dumps(_json_safe(findings), indent=2, default=str, allow_nan=False), encoding='utf-8')
 
 # Human-readable summary.
 lines=[]
