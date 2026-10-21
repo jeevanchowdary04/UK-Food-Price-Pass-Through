@@ -56,7 +56,7 @@ lines = ["# Reproducibility verification", "", "| Check | Actual | Expected | St
 for name, actual, expected, ok in checks:
     lines.append(f"| {name} | {actual} | {expected} | {'PASS' if ok else 'FAIL'} |")
 all_ok = all(x[3] for x in checks)
-lines += ["", f"**FINAL TECHNICAL AUDIT: {'PASS' if all_ok else 'FAIL'}**", ""]
+lines += ["", f"**OVERALL VERIFICATION STATUS: {'PASS' if all_ok else 'FAIL'}**", ""]
 report = ROOT / 'results' / 'reports' / 'REPRODUCIBILITY_REPORT.md'
 report.parent.mkdir(parents=True, exist_ok=True)
 report.write_text('\n'.join(lines), encoding='utf-8')
