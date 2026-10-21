@@ -26,6 +26,9 @@ jobs:
           mkdir -p /tmp/research_repo
           tar -xzf /tmp/repo_text_only.tar.gz -C /tmp/research_repo
           rsync -a --delete --exclude='.git' /tmp/research_repo/ ./
+          # The installation token cannot push workflow-file changes.
+          # CI is added separately after this one-time repository population step.
+          rm -f .github/workflows/ci.yml
 
       - name: Set up Python
         uses: actions/setup-python@v5
