@@ -1,6 +1,6 @@
 # Quick start
 
-## Offline reproduction
+## Reproduce the main analysis
 
 ```bash
 python -m venv .venv
@@ -14,9 +14,9 @@ python scripts/05_verify_reported_results.py
 pytest -q
 ```
 
-Expected headline checks: 906-row master panel, 882-row primary sample, eight final figures and a final technical audit of `PASS`.
+A successful run should recreate the 906-row master panel, the 882-row primary estimation sample, all eight figures, and a verification report with an overall `PASS` status.
 
-## Live HMRC refresh
+## Refresh the HMRC data
 
 A live refresh is optional and requires internet access:
 
@@ -28,4 +28,4 @@ python scripts/04_make_figures.py
 python scripts/05_verify_reported_results.py
 ```
 
-For methodology and formula details, see `docs/03_FORMULAS_AND_MODELS.md` and `docs/04_TECHNICAL_IMPLEMENTATION.md`.
+For the model equations and implementation details, see `docs/03_FORMULAS_AND_MODELS.md` and `docs/04_TECHNICAL_IMPLEMENTATION.md`.
