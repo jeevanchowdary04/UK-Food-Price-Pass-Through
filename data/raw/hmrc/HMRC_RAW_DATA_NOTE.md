@@ -1,14 +1,13 @@
-# HMRC raw-data status
+# HMRC raw-data note
 
-The official HMRC UK Trade Info OTS API was queried live for all six primary categories for 2014M01–2026M07, grouped by `MonthId`, `CountryId`, and `SuppressionIndex` with summed `Value` and `NetMass`. The live responses contained **58,196 country-month records** in total.
+The study uses the official HMRC UK Trade Info Overseas Trade Statistics (OTS) API for the six food categories over January 2014 to July 2026. The audited extraction covered **58,196 supplier-country-month records** in total.
 
-Because the live browser/API environment and the local file-building container are isolated, the untouched 58,196 response rows could not be transferred as raw bytes into this repository. This repository does **not** pretend otherwise.
+The full supplier-country response table is not stored in this repository. Instead, the repository keeps the information needed to reproduce and check the extraction:
 
-What is included:
-- `hmrc_query_manifest.csv`: exact API URLs used for each category;
-- `live_extraction_audit.csv`: record counts and completeness diagnostics observed from the live responses;
-- `data/interim/hmrc_api_monthly_measures/*.json`: exact 151-month category-level analytical measures persisted from the live extraction and used for the models;
-- `scripts/01_acquire_hmrc.py`: reproduces and saves the full country-month records on any normal internet-enabled machine;
-- processed panel and all model outputs.
+- `provenance/HMRC_QUERY_MANIFEST.csv` records the exact API query used for each category;
+- `provenance/LIVE_EXTRACTION_AUDIT.csv` records the observed row counts and basic completeness checks;
+- `data/interim/hmrc_monthly_api_core/*.json` contains the six 151-month category-level analytical extracts used by the main models;
+- `scripts/01_acquire_hmrc.py` can download and save the full supplier-country-month extracts on an internet-enabled machine;
+- the analysis scripts reconstruct the monthly panel and statistical outputs from the retained analytical extracts.
 
-Live extraction audit found zero null-country rows and zero non-zero suppression-index rows in these aggregated query responses. A handful of country-month rows had missing/non-positive mass, but their import-value share was zero or effectively zero (maximum observed share about 3.86e-7 in Fish). This does not remove the broader methodological limitation that HMRC suppression and quantity definitions can affect trade statistics, so the dissertation should retain that limitation.
+The extraction audit recorded no null supplier-country identifiers and no non-zero suppression-index rows in the grouped API responses. A small number of country-month rows had missing or non-positive net mass, but their import-value share was zero or negligible in the audited extraction. This does not remove the wider limitation that HMRC suppression and quantity definitions can affect trade statistics, so that limitation is retained in the dissertation and technical documentation.
